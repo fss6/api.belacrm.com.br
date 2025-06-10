@@ -91,5 +91,6 @@ jobs:
         run: |
           bin/rails db:drop RAILS_ENV=test
           bin/rails db:create RAILS_ENV=test
-          bin/rails test
+          bin/rails db:migrate RAILS_ENV=test
+          bin/rails test --verbose
         #run: bin/rails db:create && bin/rails db:test:prepare test
