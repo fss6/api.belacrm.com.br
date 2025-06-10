@@ -68,6 +68,13 @@ jobs:
         with:
           ruby-version: .ruby-version
           bundler-cache: true
+          
+      - name: Wait for PostgreSQL to be ready
+        run: |
+          until pg_isready -h localhost -p 5432 -U postgres; do
+            echo "Waiting for PostgreSQL to be ready..."
+            sleep 2
+          done
 
       - name: Run tests
         env:
@@ -82,6 +89,7 @@ jobs:
           # DATABASE_URL: postgres://postgres:postgres@localhost:5432
           # REDIS_URL: redis://localhost:6379/0
         run: |
-          bin/rails db:create
+          bin/rails db:drop RAILS_ENV=test
+          bin/rails db:create RAILS_ENV=test
           bin/rails test
         #run: bin/rails db:create && bin/rails db:test:prepare test
