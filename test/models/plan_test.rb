@@ -16,7 +16,7 @@ class PlanTest < ActiveSupport::TestCase
     plan = Plan.new(name: "Premium Plan", price_cents: 2000, description: "Premium plan description")
     assert plan.save, "Failed to save a valid plan"
   end
-  
+
   test "should not save plan with negative price_cents" do
     plan = Plan.new(name: "Invalid Plan", price_cents: -100, description: "Invalid plan description")
     assert_not plan.save, "Saved the plan with a negative price_cents"
