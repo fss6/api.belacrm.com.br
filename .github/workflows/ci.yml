@@ -72,7 +72,7 @@ jobs:
       - name: Run tests
         env:
           RAILS_ENV: test
-          DB_HOST: localhost
+          DB_HOST: postgres
           DB_PORT: 5432
           DB_USER: postgres
           DB_PASSWORD: postgres
