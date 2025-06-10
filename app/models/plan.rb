@@ -7,7 +7,7 @@ class Plan < ApplicationRecord
     validates :description, presence: true
     validates :interval, presence: true
     validates :client_limit, numericality: { only_integer: true, greater_than_or_equal_to: 0 }, allow_nil: true
-    validates :profissional_limit, numericality: { only_integer: true, greater_than_or_equal_to: 0 }, allow_nil: true
+    validates :professional_limit, numericality: { only_integer: true, greater_than_or_equal_to: 0 }, allow_nil: true
     validates :appointments_limit, numericality: { only_integer: true, greater_than_or_equal_to: 0 }, allow_nil: true
 
     def price

@@ -19,7 +19,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_06_10_114642) do
     t.integer "price_cents"
     t.integer "interval", default: 0, null: false
     t.integer "client_limit"
-    t.integer "profissional_limit"
+    t.integer "professional_limit"
     t.integer "appointments_limit"
     t.boolean "whatsapp_notifications", default: false
     t.boolean "email_notifications", default: false

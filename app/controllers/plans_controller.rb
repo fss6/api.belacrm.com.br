@@ -46,6 +46,6 @@ class PlansController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def plan_params
-      params.expect(plan: [ :name, :price_cents, :interval, :client_limit, :profissional_limit, :whatsapp_notifications, :description ])
+      params.expect(plan: [ :name, :price_cents, :interval, :client_limit, :professional_limit, :whatsapp_notifications, :description ])
     end
 end
