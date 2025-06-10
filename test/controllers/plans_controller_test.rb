@@ -14,7 +14,7 @@ class PlansControllerTest < ActionDispatch::IntegrationTest
   test "should create plan" do
     assert_difference("Plan.count") do
       plan_name = "Test Plan #{Time.now.to_i}" # Ensure unique name for each test run
-      post plans_url, params: { plan: { client_limit: @plan.client_limit, description: @plan.description, interval: @plan.interval, name: plan_name, price_cents: @plan.price_cents, profissional_limit: @plan.profissional_limit, whatsapp_notifications: @plan.whatsapp_notifications } }, as: :json
+      post plans_url, params: { plan: { client_limit: @plan.client_limit, description: @plan.description, interval: @plan.interval, name: plan_name, price_cents: @plan.price_cents, professional_limit: @plan.professional_limit, whatsapp_notifications: @plan.whatsapp_notifications } }, as: :json
     end
 
     assert_response :created
@@ -26,7 +26,7 @@ class PlansControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update plan" do
-     patch plan_url(@plan), params: { plan: { client_limit: @plan.client_limit, description: @plan.description, interval: @plan.interval, name: @plan.name, price_cents: @plan.price_cents, profissional_limit: @plan.profissional_limit, whatsapp_notifications: @plan.whatsapp_notifications } }, as: :json
+     patch plan_url(@plan), params: { plan: { client_limit: @plan.client_limit, description: @plan.description, interval: @plan.interval, name: @plan.name, price_cents: @plan.price_cents, professional_limit: @plan.professional_limit, whatsapp_notifications: @plan.whatsapp_notifications } }, as: :json
      assert_response :success
   end
 
