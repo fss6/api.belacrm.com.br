@@ -72,7 +72,7 @@ jobs:
       - name: Run tests
         env:
           RAILS_ENV: test
-          DB_HOST: postgres
+          DB_HOST: localhost
           DB_PORT: 5432
           DB_USER: postgres
           DB_PASSWORD: postgres
@@ -82,6 +82,6 @@ jobs:
           # DATABASE_URL: postgres://postgres:postgres@localhost:5432
           # REDIS_URL: redis://localhost:6379/0
         run: |
-          bundle exec rails db:setup
-          bundle exec rails test
+          bin/rails db:create
+          bin/rails test
         #run: bin/rails db:create && bin/rails db:test:prepare test
