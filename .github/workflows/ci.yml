@@ -79,3 +79,6 @@ jobs:
           # DATABASE_URL: postgres://postgres:postgres@localhost:5432
           # REDIS_URL: redis://localhost:6379/0
         run: bin/rails db:create && bin/rails db:test:prepare test
+
+      - name: Debug environment variables
+        run: echo "DB_USER: $DB_USER, DB_PASSWORD: $DB_PASSWORD, DB_HOST: $DB_HOST, DB_PORT: $DB_PORT"
