@@ -78,6 +78,10 @@ jobs:
           DB_PASSWORD: postgres
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: postgres
+          RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
           # DATABASE_URL: postgres://postgres:postgres@localhost:5432
           # REDIS_URL: redis://localhost:6379/0
-        run: bin/rails db:create && bin/rails db:test:prepare test
+        run: |
+          bundle exec rails db:setup
+          bundle exec rails test
+        #run: bin/rails db:create && bin/rails db:test:prepare test
