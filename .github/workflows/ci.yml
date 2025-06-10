@@ -80,4 +80,4 @@ jobs:
           POSTGRES_PASSWORD: postgres
           # DATABASE_URL: postgres://postgres:postgres@localhost:5432
           # REDIS_URL: redis://localhost:6379/0
-        run: bin/rails db:create --ENV=test && bin/rails db:test:prepare test
+        run: bin/rails db:create && bin/rails db:test:prepare test
