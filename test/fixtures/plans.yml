@@ -1,0 +1,31 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: Free
+  price_cents: 100
+  interval: 0
+  client_limit: 50
+  profissional_limit: 1
+  whatsapp_notifications: false
+  email_notifications: false
+  description: MyText
+
+two:
+  name: Pro
+  price_cents: 1000
+  interval: 0
+  client_limit: 500
+  profissional_limit: 3
+  whatsapp_notifications: true
+  email_notifications: true
+  description: MyText
+
+three:
+  name: Premium
+  price_cents: 10000
+  interval: 0
+  client_limit: nil
+  profissional_limit: nil
+  email_notifications: true
+  whatsapp_notifications: true
+  description: MyText
