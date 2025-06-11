@@ -122,6 +122,61 @@ clients.count >= plan.client_limit
 
 ---
 
+## Fluxo de Cadastro e Escolha de Planos
+
+### 🆓 Plano Gratuito (Free)
+
+1. Cliente acessa a landing page → clica em "Comece agora gratuitamente"
+2. Preenche o formulário de criação de conta (nome, e-mail, CPF/CNPJ opcional)
+3. Backend cria a `account` com:
+   - `status: pending`
+   - `plan_id` vinculado ao plano Free
+   - Gera `invitation_token`
+4. Envia e-mail com link para criar o primeiro usuário
+5. Ao criar o primeiro usuário, a conta se torna `active`
+6. A clínica acessa o painel com limites do plano Free
+
+✅ **Sem necessidade de cartão de crédito.**
+
+---
+
+### 💳 Plano Pago (Pro / Premium)
+
+1. Cliente acessa a landing page → clica em "Quero um plano Premium"
+2. Preenche os dados da clínica
+3. Escolhe o plano Pro ou Premium
+4. Redireciona para o checkout (ex: Stripe Checkout)
+5. Cliente insere os dados do cartão e realiza o pagamento
+6. Stripe retorna os dados: `customer_id`, `subscription_id`
+7. Backend cria a `account` com:
+   - `status: pending`
+   - `plan_id` escolhido
+   - Dados de cobrança salvos
+   - Gera `invitation_token`
+8. Envia e-mail para criação do primeiro usuário
+9. Ao criar o primeiro usuário, a conta se torna `active`
+
+---
+
+### 🔄 Alternativa: Trial com Cartão Após
+
+- Conta é ativada com trial de 7 ou 14 dias
+- Mostra aviso no painel: "Faltam X dias para cadastrar forma de pagamento"
+- Stripe inicia cobrança após o prazo
+
+---
+
+### 📌 Campos sugeridos
+
+| Campo                | Tipo     | Descrição                          |
+|---------------------|----------|------------------------------------|
+| `plan_id`           | integer  | Referência ao plano escolhido      |
+| `subscription_id`   | string   | ID da assinatura na Stripe         |
+| `stripe_customer_id`| string   | ID do cliente no Stripe            |
+| `trial_ends_at`     | datetime | Quando o trial termina             |
+
+---
+
 ## Atualizações futuras
 
 Este documento será expandido com:
