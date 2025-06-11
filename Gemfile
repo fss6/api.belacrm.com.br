@@ -20,6 +20,10 @@ gem "solid_cache"
 gem "solid_queue"
 gem "solid_cable"
 
+# Devise for authentication
+gem 'devise', '~> 4.9', '>= 4.9.4'
+gem 'devise_token_auth', '~> 1.2', '>= 1.2.5'
+
 # Reduces boot times through caching; required in config/boot.rb
 gem "bootsnap", require: false
 
