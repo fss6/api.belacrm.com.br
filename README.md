@@ -30,6 +30,7 @@ O **Bela CRM** é uma plataforma de gestão para clínicas de estética, voltada
   - `active`: conta em uso normal
   - `suspended`: bloqueada por motivo administrativo
   - `cancelled`: encerrada pelo cliente ou sistema
+- Campo `owner_user_id` armazena o ID do primeiro usuário responsável pela conta
 
 ### 2. Users (Devise Token Auth)
 
@@ -174,6 +175,47 @@ clients.count >= plan.client_limit
 | `subscription_id`   | string   | ID da assinatura na Stripe         |
 | `stripe_customer_id`| string   | ID do cliente no Stripe            |
 | `trial_ends_at`     | datetime | Quando o trial termina             |
+
+---
+
+## Tratamento de Contas Não Ativadas
+
+### 🧠 Situação
+
+Usuários podem iniciar o cadastro, receber o convite (via `invitation_token`) e **não ativar a conta**. Depois, podem tentar se cadastrar novamente com o mesmo e-mail ou CNPJ/CPF.
+
+### ✅ Estratégia de Prevenção
+
+- Durante a criação da `account`, o backend verifica se já existe uma conta com o mesmo e-mail ou identificador (`identifier`) com status `pending`.
+- Se houver, retorna uma resposta sugerindo reenvio do link de ativação.
+
+### 🔁 Reenvio de Convite
+
+- O sistema deve permitir o **reenvio do e-mail de ativação**
+- Um novo `invitation_token` pode ser gerado e enviado ao usuário
+- O frontend pode apresentar a opção: "Reenviar convite para ativar minha conta"
+
+### 🧼 Expiração de contas pendentes (opcional)
+
+- Após X dias (ex: 7), contas `pending` podem ser marcadas como `expired`
+- Isso libera o uso do mesmo e-mail ou documento para um novo cadastro
+- Pode ser automatizado com job diário
+
+### 📌 Status útil para controle
+
+| Status     | Descrição                                 |
+|------------|-------------------------------------------|
+| `pending`  | Criada, aguardando ativação               |
+| `active`   | Em uso normal                             |
+| `suspended`| Bloqueada por problemas administrativos   |
+| `cancelled`| Encerrada manual ou automaticamente       |
+| `expired`  | (Opcional) Expirou por falta de ativação  |
+
+### 🚀 UX recomendada no frontend
+
+- Detectar erro ao tentar criar conta duplicada
+- Exibir aviso: “Já existe um cadastro em andamento com este e-mail.”
+- Mostrar botão: **Reenviar link de ativação**
 
 ---
 
