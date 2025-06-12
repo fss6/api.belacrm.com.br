@@ -2,7 +2,7 @@
 
 one:
   name: Free
-  price_cents: 100
+  price_cents: 0
   interval: 0
   client_limit: 50
   professional_limit: 1

@@ -15,6 +15,7 @@ class PlansController < ApplicationController
 
   # POST /plans
   def create
+    # TODO: Apenas Admins podem criar planos
     @plan = Plan.new(plan_params)
 
     if @plan.save
@@ -26,6 +27,7 @@ class PlansController < ApplicationController
 
   # PATCH/PUT /plans/1
   def update
+    # Apenas Admins podem atualizar planos
     if @plan.update(plan_params)
       render json: @plan
     else
@@ -34,8 +36,13 @@ class PlansController < ApplicationController
   end
 
   # DELETE /plans/1
+  # Apenas Admins podem deletar planos, e apenas se não houver contas associadas
   def destroy
-    @plan.destroy!
+    if @plan.accounts.empty?
+      @plan.destroy!
+    else
+      render json: { error: "Cannot delete plan with associated accounts" }, status: :unprocessable_entity
+    end
   end
 
   private

@@ -7,10 +7,10 @@ class PlanFlowTest < ActionDispatch::IntegrationTest
   end
 
   test "can create a pan" do
-    name = "Plan #{Time.now.to_s}"
+    name = "Plan #{Time.now}"
     params = { plan: { name: name, description: "My description", price_cents: 100 } }
     post "/plans", params: params
-    
+
     assert_equal 201, response.status
 
     # Assert the response body
@@ -23,14 +23,14 @@ class PlanFlowTest < ActionDispatch::IntegrationTest
     assert_equal false, response_json["email_notifications"]
     assert_nil response_json["client_limit"]
     assert_nil response_json["professional_limit"]
-    assert_nil response_json["appointments_limit"]    
+    assert_nil response_json["appointments_limit"]
   end
 
   test "can see a plan" do
     # Create a plan first
     # This is necessary to ensure that the plan exists before we try to retrieve it
     # Otherwise, the test will fail because it won't find the plan
-    name = "Plan #{Time.now.to_s}"
+    name = "Plan #{Time.now}"
     params = { plan: { name: name, description: "My description", price_cents: 100 } }
     post "/plans", params: params
     assert_equal 201, response.status
@@ -56,7 +56,7 @@ class PlanFlowTest < ActionDispatch::IntegrationTest
 
   test "can update a plan" do
     # Create a plan first
-    name = "Plan #{Time.now.to_s}"
+    name = "Plan #{Time.now}"
     params = { plan: { name: name, description: "My description", price_cents: 100 } }
     post "/plans", params: params
     assert_equal 201, response.status
@@ -81,7 +81,7 @@ class PlanFlowTest < ActionDispatch::IntegrationTest
 
   test "can delete a plan" do
     # Create a plan first
-    name = "Plan #{Time.now.to_s}"
+    name = "Plan #{Time.now}"
     params = { plan: { name: name, description: "My description", price_cents: 100 } }
     post "/plans", params: params
     assert_equal 201, response.status

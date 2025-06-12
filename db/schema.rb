@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_06_10_211642) do
+ActiveRecord::Schema[8.0].define(version: 2025_06_12_142152) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -23,7 +23,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_06_10_211642) do
     t.datetime "plan_expires_at"
     t.bigint "plan_id", null: false
     t.integer "status"
-    t.boolean "active"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["plan_id"], name: "index_accounts_on_plan_id"
@@ -52,6 +51,15 @@ ActiveRecord::Schema[8.0].define(version: 2025_06_10_211642) do
     t.index ["email"], name: "index_admins_on_email", unique: true
     t.index ["reset_password_token"], name: "index_admins_on_reset_password_token", unique: true
     t.index ["uid", "provider"], name: "index_admins_on_uid_and_provider", unique: true
+  end
+
+  create_table "mailer_error_logs", force: :cascade do |t|
+    t.string "error_class"
+    t.text "message"
+    t.text "backtrace"
+    t.string "mailer_clas"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "plans", force: :cascade do |t|
@@ -88,13 +96,16 @@ ActiveRecord::Schema[8.0].define(version: 2025_06_10_211642) do
     t.bigint "account_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "owner_id"
     t.index ["account_id"], name: "index_users_on_account_id"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["owner_id"], name: "index_users_on_owner_id"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
     t.index ["uid", "provider"], name: "index_users_on_uid_and_provider", unique: true
   end
 
   add_foreign_key "accounts", "plans"
   add_foreign_key "users", "accounts"
+  add_foreign_key "users", "accounts", column: "owner_id"
 end

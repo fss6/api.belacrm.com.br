@@ -6,7 +6,6 @@ class PlansControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should get index" do
-    abort Plan.count.inspect
     get plans_url, as: :json
     assert_response :success
   end
@@ -30,11 +29,19 @@ class PlansControllerTest < ActionDispatch::IntegrationTest
      assert_response :success
   end
 
-  test "should destroy plan" do
+  test "should not destroy plan with associated accounts" do
+    assert_no_difference("Plan.count") do
+      delete plan_url(@plan), as: :json
+    end
+    assert_response :unprocessable_entity
+  end
+
+  test "should destroy plan without associated accounts" do
+    # Ensure the plan has no associated accounts
+    @plan.accounts.destroy_all
     assert_difference("Plan.count", -1) do
       delete plan_url(@plan), as: :json
     end
-
     assert_response :no_content
   end
 end
