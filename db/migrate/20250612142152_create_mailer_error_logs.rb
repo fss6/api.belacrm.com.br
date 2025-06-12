@@ -4,8 +4,10 @@ class CreateMailerErrorLogs < ActiveRecord::Migration[8.0]
       t.string :error_class
       t.text :message
       t.text :backtrace
-      t.string :mailer_clas
-
+      t.string :mailer_class
+      t.string :mailer_action
+      t.text :params
+      
       t.timestamps
     end
   end

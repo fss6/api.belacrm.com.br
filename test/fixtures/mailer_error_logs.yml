@@ -4,10 +4,10 @@ one:
   error_class: MyString
   message: MyText
   backtrace: MyText
-  mailer_clas: MyString
+  mailer_class: MyString
 
 two:
   error_class: MyString
   message: MyText
   backtrace: MyText
-  mailer_clas: MyString
+  mailer_class: MyString

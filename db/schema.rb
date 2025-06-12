@@ -57,7 +57,9 @@ ActiveRecord::Schema[8.0].define(version: 2025_06_12_142152) do
     t.string "error_class"
     t.text "message"
     t.text "backtrace"
-    t.string "mailer_clas"
+    t.string "mailer_class"
+    t.string "mailer_action"
+    t.text "params"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
