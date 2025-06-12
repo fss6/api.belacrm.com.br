@@ -16,7 +16,7 @@ gem "puma", ">= 5.0"
 gem "cpf_cnpj", "~> 0.2.1"
 
 # Policy authorization library for Rails
-gem 'pundit', '~> 2.5'
+gem "pundit", "~> 2.5"
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem "tzinfo-data", platforms: %i[ windows jruby ]

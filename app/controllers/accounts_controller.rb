@@ -31,7 +31,6 @@ class AccountsController < ApplicationController
     else
       render json: @account.errors, status: :unprocessable_entity
     end
-      
   end
 
   # PATCH/PUT /accounts/1
@@ -61,7 +60,7 @@ class AccountsController < ApplicationController
     def create_with_free_plan(account)
       account.generate_invitation_token
       account.invitation_sent_at = Time.current
-      
+
       if account.save
         AccountMailer.with(account: account).invitation_email.deliver_later
         render json: account, status: :created, location: account

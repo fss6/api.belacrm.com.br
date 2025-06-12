@@ -23,5 +23,4 @@ class Plan < ApplicationRecord
     def paid?
         !free?
     end
-    
 end

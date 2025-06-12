@@ -1,6 +1,6 @@
 class AccountMailer < ApplicationMailer
     default from: "notifications@example.com"
-    
+
     def invitation_email
         @account = params[:account]
         @url  = "http://example.com/login"
@@ -30,7 +30,7 @@ class AccountMailer < ApplicationMailer
         # Filter sensitive parameters before logging
         method_params = method(action_name).parameters
         params_data = {}
-        
+
         method_params.each do |_, param_name|
         params_data[param_name] = instance_variable_get("@#{param_name}") rescue nil
         end

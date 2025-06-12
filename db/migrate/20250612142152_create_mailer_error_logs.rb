@@ -7,7 +7,7 @@ class CreateMailerErrorLogs < ActiveRecord::Migration[8.0]
       t.string :mailer_class
       t.string :mailer_action
       t.text :params
-      
+
       t.timestamps
     end
   end
