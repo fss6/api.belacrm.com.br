@@ -12,6 +12,12 @@ gem "puma", ">= 5.0"
 # Use Active Model has_secure_password [https://guides.rubyonrails.org/active_model_basics.html#securepassword]
 # gem "bcrypt", "~> 3.1.7"
 
+# Validate CPF and CNPJ numbers in Brazil [https://github.com/rafaelfranca/cpf_cnpj]
+gem "cpf_cnpj", "~> 0.2.1"
+
+# Policy authorization library for Rails
+gem 'pundit', '~> 2.5'
+
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem "tzinfo-data", platforms: %i[ windows jruby ]
 
@@ -21,8 +27,8 @@ gem "solid_queue"
 gem "solid_cable"
 
 # Devise for authentication
-gem 'devise', '~> 4.9', '>= 4.9.4'
-gem 'devise_token_auth', '~> 1.2', '>= 1.2.5'
+gem "devise", "~> 4.9", ">= 4.9.4"
+gem "devise_token_auth", "~> 1.2", ">= 1.2.5"
 
 # Reduces boot times through caching; required in config/boot.rb
 gem "bootsnap", require: false
