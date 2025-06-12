@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #fafafa;
+        margin: 0;
+        padding: 0;
+        color: #333;
+      }
+      .container {
+        max-width: 600px;
+        margin: 0 auto;
+        background-color: #fff;
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+      }
+      .logo {
+        text-align: center;
+        margin-bottom: 20px;
+      }
+      .logo img {
+        height: 150px;
+      }
+      h1 {
+        font-size: 22px;
+        color: #d63384;
+      }
+      .button {
+        display: inline-block;
+        margin-top: 20px;
+        padding: 12px 24px;
+        background-color: #d63384;
+        color: #fff;
+        text-decoration: none;
+        border-radius: 6px;
+        font-weight: bold;
+      }
+      .footer {
+        margin-top: 40px;
+        font-size: 12px;
+        color: #999;
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="logo">
+        <%= image_tag "logo.png", alt: "Bela CRM" %>
+      </div>
+
+      <h1>Bem-vindo ao Bela CRM!</h1>
+
+      <p>Olá <strong><%= @account.name %></strong>,</p>
+
+      <p>Parabéns por criar sua conta no <strong>Bela CRM</strong> — sua nova plataforma de gestão para clínicas de estética.</p>
+
+      <p>Estamos aqui para tornar a administração da sua clínica mais simples, organizada e eficiente.</p>
+
+      <p>Ao clicar no botão abaixo, você ativará sua conta e poderá criar o <strong>primeiro usuário administrador</strong>, que terá acesso total ao sistema.</p>
+
+      <p>Depois disso, você poderá:</p>
+      <ul>
+        <li>Personalizar os dados da sua clínica</li>
+        <li>Cadastrar clientes e profissionais</li>
+        <li>Agendar atendimentos</li>
+        <li>E muito mais!</li>
+      </ul>
+
+      <p style="text-align: center;">
+        <a href="https://example.com" class="button">Ativar minha conta</a>
+      </p>
+
+      <p>Se precisar de ajuda, é só responder este e-mail. Estamos aqui para te apoiar!</p>
+
+      <p>Abraços,<br/>Equipe Bela CRM 💖</p>
+
+      <div class="footer">
+        © <%= Time.current.year %> Bela CRM. Todos os direitos reservados.
+      </div>
+    </div>
+  </body>
+</html>
