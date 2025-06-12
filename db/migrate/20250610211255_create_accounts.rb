@@ -9,7 +9,6 @@ class CreateAccounts < ActiveRecord::Migration[8.0]
       t.datetime :plan_expires_at
       t.references :plan, null: false, foreign_key: true
       t.integer :status
-      t.boolean :active
 
       t.timestamps
     end

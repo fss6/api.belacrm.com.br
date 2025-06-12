@@ -2,22 +2,20 @@
 
 one:
   name: MyString
-  email: MyString
-  identifier: MyString
-  invitation_token: MyString
-  invitation_sent_at: 2025-06-10 21:14:25
-  plan_expires_at: 2025-06-10 21:14:25
+  email: mail1@example.com
+  identifier: 29537995593
   plan: one
-  status: 1
-  active: false
+  status: 0
+  invitation_token: mytoken
+  invitation_sent_at: 2025-06-01 00:00:00
+  plan_expires_at: 2025-06-01 00:00:00
 
 two:
   name: MyString
-  email: MyString
-  identifier: MyString
-  invitation_token: MyString
-  invitation_sent_at: 2025-06-10 21:14:25
-  plan_expires_at: 2025-06-10 21:14:25
+  email: mail2@example.com
+  identifier: 54550752000155
   plan: two
-  status: 1
-  active: false
+  status: 0
+  invitation_token: mytoken
+  invitation_sent_at: 2025-06-01 00:00:00
+  plan_expires_at: 2025-06-01 00:00:00

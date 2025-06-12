@@ -1,16 +1,19 @@
 Rails.application.routes.draw do
-  resources :accounts
-  mount_devise_token_auth_for 'User', at: 'auth'
+  resources :accounts, except: :destroy
+  patch "accounts/:id/cancel", to: "accounts#cancel", as: :cancel_accounts
+
+  mount_devise_token_auth_for "User", at: "auth"
   as :user do
     # Define routes for User within this block.
   end
 
-  mount_devise_token_auth_for 'Admin', at: 'admin'
+  mount_devise_token_auth_for "Admin", at: "admin"
   as :admin do
     # Define routes for Admin within this block.
   end
-  
+
   resources :plans
+
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.

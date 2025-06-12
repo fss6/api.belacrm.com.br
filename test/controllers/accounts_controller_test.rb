@@ -11,8 +11,11 @@ class AccountsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should create account" do
+    params = { email: "#{Time.now.to_i}@example.com", identifier: 76556868310, name: @account.name, plan_id: @account.plan_id }
+    account = Account.new(params)
+
     assert_difference("Account.count") do
-      post accounts_url, params: { account: { active: @account.active, email: @account.email, identifier: @account.identifier, invitation_sent_at: @account.invitation_sent_at, invitation_token: @account.invitation_token, name: @account.name, plan_expires_at: @account.plan_expires_at, plan_id: @account.plan_id, status: @account.status } }, as: :json
+      post accounts_url, params: { account: params }, as: :json
     end
 
     assert_response :created
@@ -24,15 +27,15 @@ class AccountsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update account" do
-    patch account_url(@account), params: { account: { active: @account.active, email: @account.email, identifier: @account.identifier, invitation_sent_at: @account.invitation_sent_at, invitation_token: @account.invitation_token, name: @account.name, plan_expires_at: @account.plan_expires_at, plan_id: @account.plan_id, status: @account.status } }, as: :json
+    patch account_url(@account), params: { account: { email: @account.email, identifier: @account.identifier, name: @account.name, plan_id: @account.plan_id } }, as: :json
     assert_response :success
   end
 
-  test "should destroy account" do
-    assert_difference("Account.count", -1) do
-      delete account_url(@account), as: :json
-    end
+  test "should cancel account" do
+    assert @account.valid?, @account.errors.full_messages.inspect
 
-    assert_response :no_content
+    patch cancel_accounts_path(@account), as: :json
+
+    assert_response :success
   end
 end

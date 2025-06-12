@@ -1,5 +1,5 @@
 class AccountsController < ApplicationController
-  before_action :set_account, only: %i[ show update destroy ]
+  before_action :set_account, only: %i[ show update cancel ]
 
   # GET /accounts
   def index
@@ -17,16 +17,21 @@ class AccountsController < ApplicationController
 
   # POST /accounts
   def create
-    # TODO: Rota publica, qualquer um pode criar uma conta
-    # TODO: O dono deve criar a conta, não um admin
-    # TODO: Deve selecionar o plano, e receber o token de convite
     @account = Account.new(account_params)
 
-    if @account.save
-      render json: @account, status: :created, location: @account
+    if @account.valid?
+      render json: account.errors, status: :unprocessable_entity
+    end
+
+    case
+    when @account.plan&.free?
+      create_with_free_plan(@account)
+    when @account.plan&.paid?
+      raise "Paid plans (TBD)"
     else
       render json: @account.errors, status: :unprocessable_entity
     end
+      
   end
 
   # PATCH/PUT /accounts/1
@@ -39,10 +44,12 @@ class AccountsController < ApplicationController
     end
   end
 
-  # DELETE /accounts/1
-  def destroy
-    # TODO: Deve cancelar a conta, não deletar
-    @account.destroy!
+  # CANCEL /accounts/1
+  def cancel
+    @account.status = :cancelled
+    @account.save!
+
+    render json: @account
   end
 
   private
@@ -51,8 +58,20 @@ class AccountsController < ApplicationController
       @account = Account.find(params.expect(:id))
     end
 
+    def create_with_free_plan(account)
+      account.generate_invitation_token
+      account.invitation_sent_at = Time.current
+      
+      if account.save
+        AccountMailer.with(account: account).invitation_email.deliver_later
+        render json: account, status: :created, location: account
+      else
+        render json: account.errors, status: :unprocessable_entity
+      end
+    end
+
     # Only allow a list of trusted parameters through.
     def account_params
-      params.expect(account: [ :name, :email, :identifier, :invitation_token, :invitation_sent_at, :plan_expires_at, :plan_id, :status, :active ])
+      params.expect(account: [ :name, :email, :identifier, :plan_id ])
     end
 end
