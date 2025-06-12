@@ -1,0 +1,2 @@
+class MailerErrorLog < ApplicationRecord
+end
